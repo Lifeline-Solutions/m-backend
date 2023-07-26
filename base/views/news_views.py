@@ -27,7 +27,7 @@ def createNew(request):
     user = request.user
     new = New.objects.create(
         user=user,
-        name='Sample Name',
+        title='Sample Name',
         description=''
     )
     serializer = NewSerializer(new, many=False)
@@ -38,7 +38,7 @@ def createNew(request):
 def updateNew(request, pk):
     data = request.data
     new = New.objects.get(_id=pk)
-    new.name = data['name']
+    new.title = data['title']
     new.description = data['description']
     new.save()
     serializer = NewSerializer(new, many=False)
@@ -50,3 +50,14 @@ def deleteNew(request, pk):
     new = New.objects.get(_id=pk)
     new.delete()
     return Response('New was deleted')
+
+@api_view(['POST'])
+def uploadImage(request):
+    data = request.data
+    news_id = data['news_id']
+    new = New.objects.get(_id=news_id)
+
+    new.image = request.FILES.get('image')
+    new.save()
+
+    return Response('Image was uploaded')
