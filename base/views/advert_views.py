@@ -2,64 +2,62 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from base.models import New
+from base.models import Advert
 from django.contrib.auth.models import User
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from base.serializer import NewSerializer
+from base.serializer import AdvertSerializer
 from rest_framework import status
 
 @api_view(['GET'])
-def getNews(request):
-    news = New.objects.all()
-    serializer = NewSerializer(news, many=True)
+def getAdverts(request):
+    adverts = Advert.objects.all()
+    serializer = AdvertSerializer(adverts, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
-def getNew(request, pk):
-    new = New.objects.get(_id=pk)
-    serializer = NewSerializer(new, many=False)
+def getAdvert(request, pk):
+    advert = Advert.objects.get(_id=pk)
+    serializer = AdvertSerializer(advert, many=False)
     return Response(serializer.data)
 
 @api_view(['POST'])
 @permission_classes([IsAdminUser])
-def createNew(request):
+def createAdvert(request):
     user = request.user
-    new = New.objects.create(
+    advert = Advert.objects.create(
         user=user,
         title='Sample Name',
-        category='Sample Category',
         description=''
     )
-    serializer = NewSerializer(new, many=False)
+    serializer = AdvertSerializer(advert, many=False)
     return Response(serializer.data)
 
 @api_view(['PUT'])
 @permission_classes([IsAdminUser])
-def updateNew(request, pk):
+def updateAdvert(request, pk):
     data = request.data
-    new = New.objects.get(_id=pk)
-    new.title = data['title']
-    new.description = data['description']
-    new.category = data['category']
-    new.save()
-    serializer = NewSerializer(new, many=False)
+    advert = Advert.objects.get(_id=pk)
+    advert.title = data['title']
+    advert.description = data['description']
+    advert.save()
+    serializer = AdvertSerializer(advert, many=False)
     return Response(serializer.data)
 
 @api_view(['DELETE'])
 @permission_classes([IsAdminUser])
-def deleteNew(request, pk):
-    new = New.objects.get(_id=pk)
-    new.delete()
+def deleteAdvert(request, pk):
+    advert = Advert.objects.get(_id=pk)
+    advert.delete()
     return Response('New was deleted')
 
 @api_view(['POST'])
 def uploadImage(request):
     data = request.data
-    news_id = data['news_id']
-    new = New.objects.get(_id=news_id)
-
-    new.image = request.FILES.get('image')
-    new.save()
+    advert_id = data['advert_id']
+    advert = Advert.objects.get(_id=advert_id)
+    
+    advert.image = request.FILES.get('image')
+    advert.save()
 
     return Response('Image was uploaded')

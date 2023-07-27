@@ -89,4 +89,9 @@ class NewSerializer(serializers.ModelSerializer):
         model = New
         fields = '__all__'
         
+        
+class AdvertSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = New
+        fields = '__all__'
     
