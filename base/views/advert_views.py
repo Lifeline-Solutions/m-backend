@@ -54,8 +54,8 @@ def deleteAdvert(request, pk):
 @api_view(['POST'])
 def uploadImage(request):
     data = request.data
-    advert_id = data['advert_id']
-    advert = Advert.objects.get(_id=advert_id)
+    adverts_id = data['adverts_id']
+    advert = Advert.objects.get(_id=adverts_id)
     
     advert.image = request.FILES.get('image')
     advert.save()

@@ -63,3 +63,16 @@ def uploadImage(request):
     new.save()
 
     return Response('Image was uploaded')
+
+@api_view(['GET'])
+def getOneLatestNew(request):
+    new = New.objects.all().order_by('-_id')[:1]
+    serializer = NewSerializer(new, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def getNextFourLatestNews(request):
+    new = New.objects.all().order_by('-_id')[1:5]
+    serializer = NewSerializer(new, many=True)
+    return Response(serializer.data)

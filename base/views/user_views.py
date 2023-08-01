@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.core.mail import send_mail
 
 
 from django.contrib.auth.models import User
@@ -44,6 +45,7 @@ def getRoutes(request):
     return Response(routes)
 
 
+
 @api_view(['POST'])
 def registerUser(request):
     data = request.data
@@ -59,6 +61,8 @@ def registerUser(request):
     except:
         message = {'detail': 'User with this email already exists'}
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 
 @api_view(['PUT'])
@@ -77,6 +81,7 @@ def updateUserProfile(request):
         user.password = make_password(data['password'])
 
     user.save()
+   
 
     return Response(serializer.data)
 
@@ -135,3 +140,19 @@ def deleteUser(request, pk):
     user.delete()
 
     return Response('User was deleted')
+
+@api_view(['POST'])
+def sendEmail(request):
+    print(request.data)
+    data = request.data
+    try:
+        send_mail(
+            'Welcome to our membership',
+            'Hello ' + data['name']+ ','+  '\n\n' + 'Thank you for joining our membership. We are happy to have you with us. We will send you the latest news and updates about our products and services. Stay tuned!' + '\n\n' + 'Best regards,' + '\n' + 'Murang\'a Seals football club',
+            '',
+            [data['email']],
+        )
+        return Response('Email sent')
+    except:
+        message = {'detail': 'User with this email already exists'}
+        return Response(message, status=status.HTTP_400_BAD_REQUEST)
