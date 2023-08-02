@@ -1,1 +1,1 @@
-web: gunicorn mseals.wsgi –log-file -
+web: gunicorn mbackend.wsgi –log-file -
