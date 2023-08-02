@@ -1,0 +1,1 @@
+web: gunicorn mseals.wsgi –log-file -
