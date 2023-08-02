@@ -27,10 +27,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("SECRET_KEY")
+SECRET_KEY = 'django-insecure-18t@iwak*#3d4el)&%k=96%1p9=_u1(d5s1k1c-*5*pcj@m=ek'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG", default=False, cast=bool)
+DEBUG = True
 
 ALLOWED_HOSTS = ['https://mbackend-65aa08f37e31.herokuapp.com/','127.0.0.1' ]
 
@@ -200,9 +200,9 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = config('EMAIL_PORT')
-EMAIL_USE_TLS = config('EMAIL_USE_TLS')
-EMAIL_USE_SSL = config('EMAIL_USE_SSL')
+EMAIL_HOST_USER = 'kiprotichkimutai01@gmail.com'
+EMAIL_HOST_PASSWORD = 'xwogrcpeezopjayu'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 
