@@ -1,1 +1,1 @@
-web: gunicorn mbackend.wsgi --log-file -
+web: gunicorn mechanical.wsgi --log-file -
