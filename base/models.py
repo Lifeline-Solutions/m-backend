@@ -115,3 +115,51 @@ class Advert(models.Model):
 
     def __str__(self):
         return str(self.title)
+    
+class Team(models.Model):
+    name = models.CharField(max_length=200, null=True, blank=True)
+    logo = models.ImageField(null=True, blank=True, default='/placeholder.png', upload_to='images/')
+    _id = models.AutoField(primary_key=True, editable=False)
+    
+    def __str__(self):
+        return str(self.name)
+    
+class Match(models.Model):
+    team1 = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True, related_name='team1')
+    team2 = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True, related_name='team2')
+    team1_score = models.IntegerField(null=True, blank=True, default=0)
+    team2_score = models.IntegerField(null=True, blank=True, default=0)
+    date = models.DateField(auto_now_add=False, null=True, blank=True)
+    time = models.TimeField(auto_now_add=False, null=True, blank=True)
+    category = models.CharField(max_length=200, null=True, blank=True)
+    _id = models.AutoField(primary_key=True, editable=False)
+    
+    def __str__(self):
+        return str(self.team1) + ' vs ' + str(self.team2)
+    
+class Fixture(models.Model):
+    team1 = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True, related_name='team1_fixture')
+    team2 = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True, related_name='team2_fixture')
+    date = models.DateField(auto_now_add=False, null=True, blank=True)
+    time = models.TimeField(auto_now_add=False, null=True, blank=True)
+    category = models.CharField(max_length=200, null=True, blank=True)
+    stadium = models.CharField(max_length=200, null=True, blank=True)
+    _id = models.AutoField(primary_key=True, editable=False)
+    
+    def __str__(self):
+        return str(self.team1) + ' vs ' + str(self.team2)
+    
+class Table(models.Model):
+    team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True, related_name='team_table')
+    played = models.IntegerField(null=True, blank=True, default=0)
+    won = models.IntegerField(null=True, blank=True, default=0)
+    drawn = models.IntegerField(null=True, blank=True, default=0)
+    lost = models.IntegerField(null=True, blank=True, default=0)
+    goals_for = models.IntegerField(null=True, blank=True, default=0)
+    goals_against = models.IntegerField(null=True, blank=True, default=0)
+    goal_difference = models.IntegerField(null=True, blank=True, default=0)
+    points = models.IntegerField(null=True, blank=True, default=0)
+    _id = models.AutoField(primary_key=True, editable=False)
+    
+    def __str__(self):
+        return str(self.team)

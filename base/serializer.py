@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import Product, Review, Order, OrderItem, ShippingAddress, New
+from .models import Product, Review, Order, OrderItem, ShippingAddress, New, Advert, Team, Match, Fixture, Table
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -93,5 +93,25 @@ class NewSerializer(serializers.ModelSerializer):
 class AdvertSerializer(serializers.ModelSerializer):
     class Meta:
         model = New
+        fields = '__all__'
+        
+class TeamSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Team
+        fields = '__all__'
+        
+class MatchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Match
+        fields = '__all__'
+        
+class FixtureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Fixture
+        fields = '__all__'
+        
+class TableSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Table
         fields = '__all__'
     
