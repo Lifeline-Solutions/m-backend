@@ -42,7 +42,7 @@ def updateTeam(request, pk):
     data = request.data
     team = Team.objects.get(_id=pk)
     team.name = data['name']
-    team.logo = data['logo']
+    team.logo = data['image']
     team.save()
     serializer = TeamSerializer(team, many=False)
     return Response(serializer.data)
