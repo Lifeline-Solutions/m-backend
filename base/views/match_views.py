@@ -25,8 +25,8 @@ def getMatch(request, pk):
 @permission_classes([IsAdminUser])
 def addMatch(request):
     match = Match.objects.create(
-        team1='Sample Team 1',
-        team2='Sample Team 2',
+        team1=1,
+        team2=2,
         date='2021-01-01',
         time = '00:00:00',
         team1_score=0,

@@ -31,6 +31,7 @@ def getTeam(request, pk):
 def addTeam(request):
     team = Team.objects.create(
         name='Sample Name',
+        image = 'https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png',
     )
     serializer = TeamSerializer(team, many=False)
     return Response(serializer.data)
@@ -41,6 +42,7 @@ def updateTeam(request, pk):
     data = request.data
     team = Team.objects.get(_id=pk)
     team.name = data['name']
+    team.logo = data['logo']
     team.save()
     serializer = TeamSerializer(team, many=False)
     return Response(serializer.data)
@@ -58,8 +60,8 @@ def uploadImage(request):
     data = request.data
     team_id = data['team_id']
     team = Team.objects.get(_id=team_id)
-
-    team.image = request.FILES.get('image')
+    # update logo
+    team.logo = request.FILES.get('image')
     team.save()
 
     return Response('Image was uploaded')

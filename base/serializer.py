@@ -101,9 +101,19 @@ class TeamSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
 class MatchSerializer(serializers.ModelSerializer):
+    team1 = TeamSerializer(many=False, read_only=True)
+    team2 = TeamSerializer(many=False, read_only=True)
     class Meta:
         model = Match
         fields = '__all__'
+        team1 = serializers.SerializerMethodField(read_only=True)
+        team2 = serializers.SerializerMethodField(read_only=True)
+        
+    
+    
+        
+        
+        
         
 class FixtureSerializer(serializers.ModelSerializer):
     class Meta:
