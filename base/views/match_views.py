@@ -45,7 +45,6 @@ def updateMatch(request, pk):
     match.time = data['time']
     match.team1_score = data['team1_score']
     match.team2_score = data['team2_score']
-    match.category = data['category']
     match.save()
     serializer = MatchSerializer(match, many=False)
     return Response(serializer.data)
