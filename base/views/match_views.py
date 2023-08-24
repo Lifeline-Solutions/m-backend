@@ -41,8 +41,6 @@ def addMatch(request):
 def updateMatch(request, pk):
     data = request.data
     match = Match.objects.get(_id=pk)
-    match.team1 = data['team1']
-    match.team2 = data['team2']
     match.date = data['date']
     match.time = data['time']
     match.team1_score = data['team1_score']
