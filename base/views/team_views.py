@@ -31,7 +31,7 @@ def getTeam(request, pk):
 def addTeam(request):
     team = Team.objects.create(
         name='Sample Name',
-        image = 'https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png',
+        logo = 'https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png',
     )
     serializer = TeamSerializer(team, many=False)
     return Response(serializer.data)
